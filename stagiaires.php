@@ -1,7 +1,22 @@
 <?php
 require_once "database/db.php";
 
-$stagiaires = $db->query("SELECT * FROM stagiaires  ORDER BY id DESC")->fetchAll();
+$stagiaires = $db->query("SELECT * FROM stagiaires ORDER BY id DESC")->fetchAll();
+
+
+
+// $_GET;
+// $_POST;
+// $_COOKIE;
+// $_SESSION;
+// $_FILES;
+// $_SERVER;
+
+
+
+
+
+
 
 ?>
 
@@ -25,6 +40,8 @@ $stagiaires = $db->query("SELECT * FROM stagiaires  ORDER BY id DESC")->fetchAll
     </header>
     <main class="container mt-3">
         <h3>Stagiaires Page</h3>
+
+
 
 
 
@@ -53,7 +70,6 @@ $stagiaires = $db->query("SELECT * FROM stagiaires  ORDER BY id DESC")->fetchAll
                         <tbody>
                             <?php foreach ($stagiaires as $key => $value) : ?>
                                 <tr>
-
                                     <td>
                                         <?= $value->id ?>
                                     </td>
@@ -67,7 +83,7 @@ $stagiaires = $db->query("SELECT * FROM stagiaires  ORDER BY id DESC")->fetchAll
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="" class="btn btn-secondary btn-sm">Afficher</a>
+                                        <a href="stagiaire_details.php?id=<?= $value->id ?>" class="btn btn-secondary btn-sm">Afficher</a>
 
                                         <a href="" class="btn btn-dark btn-sm">Modifier</a>
 
