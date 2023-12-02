@@ -34,6 +34,8 @@ $stagiaires = $db->query("SELECT * FROM stagiaires ORDER BY id DESC")->fetchAll(
 
 </head>
 
+<!-- git reset --HARD -->
+
 <body>
     <header>
         <?php include "body/nav.php" ?>
@@ -52,7 +54,7 @@ $stagiaires = $db->query("SELECT * FROM stagiaires ORDER BY id DESC")->fetchAll(
 
             <div class="card-body">
 
-                <a href="" class="btn btn-primary mb-3 ">Ajouter</a>
+                <a href="stagiaire_add.php" class="btn btn-primary mb-3 ">Ajouter</a>
 
 
                 <div class="table-responsive">
@@ -87,7 +89,7 @@ $stagiaires = $db->query("SELECT * FROM stagiaires ORDER BY id DESC")->fetchAll(
 
                                         <a href="" class="btn btn-dark btn-sm">Modifier</a>
 
-                                        <a href="" class="btn btn-danger btn-sm">Supprimer</a>
+                                        <a href="stagiaire_delete.php?id=<?= $value->id ?>" class="btn btn-danger btn-sm">Supprimer</a>
                                     </td>
                                 </tr>
                             <?php endforeach ?>

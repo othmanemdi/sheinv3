@@ -1,23 +1,37 @@
 <?php
 require_once "database/db.php";
 
+if (isset($_POST['add_stagiaire'])) {
+
+    // echo 'ok';
+    // exit;
+    // echo "<pre>";
+    // print_r($_POST);
+    // echo "</pre>";
+    // exit;
+
+    $prenom = $_POST['prenom'];
+    $nom = $_POST['nom'];
+    $date_naissance = $_POST['date_naissance'];
+    $genre = $_POST['genre'];
+
+    $db->query("INSERT INTO stagiaires SET 
+    prenom = '$prenom',
+    nom = '$nom',
+    date_naissance = '$date_naissance',
+    genre = '$genre'
+    ");
+
+    header("Location: stagiaires.php");
+    exit;
+}
+
 
 // echo "<pre>";
 // print_r($_GET);
 // echo "</pre>";
 
-if (isset($_GET['prenom']) and isset($_GET['nom'])) {
 
-    $first_name = $_GET['prenom'];
-    $last_name = $_GET['nom'];
-
-    echo "Hi my first name is " . $first_name . " and my last name is " . $last_name;
-} else {
-    header("Location: stagiaires.php");
-    exit;
-}
-
-exit;
 
 
 ?>
@@ -52,6 +66,51 @@ exit;
 
             <div class="card-body">
 
+                <form method="post">
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="prenom" class="form-label">Prénom:</label>
+                                <input type="text" class="form-control" name="prenom" id="prenom" aria-describedby="helpId" placeholder="Prénom:">
+
+                            </div>
+                        </div>
+                        <!-- col -->
+
+
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="nom" class="form-label">Nom:</label>
+                                <input type="text" class="form-control" name="nom" id="nom" aria-describedby="helpId" placeholder="Nom:">
+                            </div>
+                        </div>
+                        <!-- col -->
+
+
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="date_naissance" class="form-label">Date de naissance:</label>
+                                <input type="date" class="form-control" name="date_naissance" id="date_naissance">
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="genre" class="form-label">Genre</label>
+                                <select class="form-control" name="genre" id="genre">
+                                    <option value="femme">Femme</option>
+                                    <option value="homme">Homme</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- col -->
+                    </div>
+                    <!-- row -->
+
+                    <button class="btn btn-primary" name="add_stagiaire">Ajouter</button>
+                </form>
             </div>
             <!-- card-body -->
         </div>
