@@ -32,7 +32,8 @@ if (isset($_GET['id'])) {
 
 if (isset($_POST['delete_stagiaire'])) {
 
-    $db->query("DELETE FROM stagiaires WHERE id = $id");
+    // $db->query("DELETE FROM stagiaires WHERE id = $id");
+    $db->query("UPDATE stagiaires SET deleted_at = NOW() WHERE id = $id");
     header("Location: stagiaires.php");
     exit;
 }

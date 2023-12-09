@@ -3,8 +3,6 @@ require_once "database/db.php";
 require_once "helpers/functions.php";
 $page = "stagiaire_update";
 
-
-
 if (isset($_GET['id'])) {
 
     $id = $_GET['id'];

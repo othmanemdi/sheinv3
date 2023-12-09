@@ -23,7 +23,7 @@ if (isset($_GET['row_selected'])) {
 
 
 
-$stagiaires = $db->query("SELECT * FROM stagiaires ORDER BY id DESC")->fetchAll();
+$stagiaires = $db->query("SELECT * FROM stagiaires WHERE deleted_at IS NULL ORDER BY id DESC")->fetchAll();
 
 
 
