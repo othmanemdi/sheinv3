@@ -87,7 +87,7 @@ $stagiaires = $db->query("SELECT * FROM stagiaires ORDER BY id DESC")->fetchAll(
                                     <td>
                                         <a href="stagiaire_details.php?id=<?= $value->id ?>" class="btn btn-secondary btn-sm">Afficher</a>
 
-                                        <a href="" class="btn btn-dark btn-sm">Modifier</a>
+                                        <a href="stagiaire_update.php?id=<?= $value->id ?>" class="btn btn-dark btn-sm">Modifier</a>
 
                                         <a href="stagiaire_delete.php?id=<?= $value->id ?>" class="btn btn-danger btn-sm">Supprimer</a>
                                     </td>
