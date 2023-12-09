@@ -2,6 +2,20 @@
 require_once "database/db.php";
 $page = "stagiaires";
 
+
+// $fruits = ['banane', 'pomme', 'orange', 'ananas'];
+
+// $fruit = 'banane';
+
+// var_dump(in_array($fruit, $fruits));
+
+// exit;
+
+
+
+
+
+
 $stagiaires = $db->query("SELECT * FROM stagiaires ORDER BY id DESC")->fetchAll();
 
 

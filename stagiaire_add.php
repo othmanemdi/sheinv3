@@ -1,5 +1,6 @@
 <?php
 require_once "database/db.php";
+$page = "stagiaire_add";
 
 if (isset($_POST['add_stagiaire'])) {
 
