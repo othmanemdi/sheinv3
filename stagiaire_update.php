@@ -1,10 +1,9 @@
 <?php
 require_once "database/db.php";
+require_once "helpers/functions.php";
 
 
-// echo "<pre>";
-// print_r($_GET);
-// echo "</pre>";
+dd($_GET);
 
 if (isset($_GET['id'])) {
 
@@ -20,6 +19,7 @@ if (isset($_GET['id'])) {
     }
 
     if (isset($_POST['update_stagiaire'])) {
+        dd($_POST);
 
         $prenom = $_POST['prenom'];
         $nom = $_POST['nom'];
@@ -38,6 +38,8 @@ if (isset($_GET['id'])) {
         exit;
     }
 
+    // git reset --hard
+    // git stash
 
     $stagiaire = $req->fetch();
 
