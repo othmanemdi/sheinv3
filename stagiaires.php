@@ -1,6 +1,13 @@
 <?php
 require_once "database/db.php";
+require_once "helpers/functions.php";
 $page = "stagiaires";
+$row_selected = 0;
+
+if (isset($_GET['row_selected'])) {
+    $row_selected = (int)$_GET['row_selected'];
+}
+
 
 
 // $fruits = ['banane', 'pomme', 'orange', 'ananas'];
@@ -86,7 +93,7 @@ $stagiaires = $db->query("SELECT * FROM stagiaires ORDER BY id DESC")->fetchAll(
                         </theade>
                         <tbody>
                             <?php foreach ($stagiaires as $key => $value) : ?>
-                                <tr>
+                                <tr class="<?= $value->id == $row_selected ? 'table-primary' : '' ?>">
                                     <td>
                                         <?= $value->id ?>
                                     </td>

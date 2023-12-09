@@ -19,7 +19,6 @@ if (isset($_GET['id'])) {
     }
 
     if (isset($_POST['update_stagiaire'])) {
-        dd($_POST);
 
         $prenom = $_POST['prenom'];
         $nom = $_POST['nom'];
@@ -34,7 +33,7 @@ if (isset($_GET['id'])) {
             WHERE id = $id
         ");
 
-        header("Location: stagiaires.php");
+        header("Location: stagiaires.php?row_selected=$id");
         exit;
     }
 

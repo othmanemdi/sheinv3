@@ -23,7 +23,9 @@ if (isset($_POST['add_stagiaire'])) {
     genre = '$genre'
     ");
 
-    header("Location: stagiaires.php");
+    $id = $db->lastInsertId();
+
+    header("Location: stagiaires.php?row_selected=$id");
     exit;
 }
 
