@@ -1,5 +1,6 @@
 <?php
 require_once "database/db.php";
+$page = "stagiaires";
 
 $stagiaires = $db->query("SELECT * FROM stagiaires ORDER BY id DESC")->fetchAll();
 

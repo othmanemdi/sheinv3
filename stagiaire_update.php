@@ -3,7 +3,6 @@ require_once "database/db.php";
 require_once "helpers/functions.php";
 
 
-dd($_GET);
 
 if (isset($_GET['id'])) {
 

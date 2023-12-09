@@ -1,4 +1,7 @@
 <?php
+
+$page = "shop";
+
 $categories = [
     1 => [
         "name" =>  "iphone",

@@ -1,3 +1,8 @@
+<?php
+$page = "cart";
+
+?>
+
 <!doctype html>
 <html lang="en">
 
