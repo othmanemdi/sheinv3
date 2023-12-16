@@ -1,5 +1,7 @@
 <?php
 require_once "database/db.php";
+require_once "helpers/functions.php";
+
 $page = "stagiaire_details";
 
 
@@ -26,6 +28,8 @@ if (isset($_GET['id'])) {
     // print_r($stagiaire);
     // echo "</pre>";
 } else {
+    $_SESSION['message'] = "Error Id";
+    $_SESSION['color'] = "danger";
     header("Location: stagiaires.php");
     exit;
 }

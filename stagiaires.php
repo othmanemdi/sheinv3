@@ -1,6 +1,22 @@
 <?php
 require_once "database/db.php";
 require_once "helpers/functions.php";
+
+// $_SESSION['prenon'] = 'Rihab';
+// $_SESSION['nom'] = 'Tibari';
+// unset($_SESSION['prenon']);
+
+// dd($_SESSION);
+
+
+
+
+
+
+
+
+
+
 $page = "stagiaires";
 $row_selected = 0;
 
@@ -82,6 +98,14 @@ $total_archived = $db->query("SELECT COUNT(id) AS total FROM stagiaires WHERE de
                         <?= $total_archived ?>
                     </span>
                 </a>
+
+                <?php if (isset($_SESSION['message']) and isset($_SESSION['color'])) : ?>
+                    <div class="alert alert-<?= $_SESSION['color'] ?>" role="alert">
+                        <?= $_SESSION['message'] ?>
+                        <?php unset($_SESSION['message']) ?>
+                        <?php unset($_SESSION['color']) ?>
+                    </div>
+                <?php endif ?>
 
 
                 <div class="table-responsive">

@@ -30,6 +30,8 @@ if (isset($_GET['id'])) {
             genre = '$genre'
             WHERE id = $id
         ");
+        $_SESSION['message'] = "Bien modifier";
+        $_SESSION['color'] = "success";
 
         header("Location: stagiaires.php?row_selected=$id");
         exit;

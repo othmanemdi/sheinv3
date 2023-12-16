@@ -32,6 +32,11 @@
 // $prenom = "aymane";
 // $nom = "mezoura";
 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+
 function full_name($first_name, $last_name)
 {
     return $first_name . ' ' . $last_name;
