@@ -1,7 +1,7 @@
 <?php
 require_once "database/db.php";
 require_once "helpers/functions.php";
-$page = "stagiaires";
+$page = "categories";
 $row_selected = 0;
 
 if (isset($_GET['row_selected'])) {
@@ -23,13 +23,8 @@ if (isset($_GET['row_selected'])) {
 
 
 
-$stagiaires = $db->query("SELECT * FROM stagiaires WHERE deleted_at IS NULL ORDER BY id DESC")->fetchAll();
+$categories = $db->query("SELECT * FROM categories WHERE deleted_at IS NULL ORDER BY id DESC")->fetchAll();
 
-
-$total_archived = $db->query("SELECT COUNT(id) AS total FROM stagiaires WHERE deleted_at IS NOT NULL LIMIT 1")->fetch()->total;
-
-
-// $total_archived = $db->query("SELECT id FROM stagiaires WHERE deleted_at IS NOT NULL")->rowCount();
 
 
 // $_GET;
@@ -62,26 +57,16 @@ $total_archived = $db->query("SELECT COUNT(id) AS total FROM stagiaires WHERE de
         <?php include "body/nav.php" ?>
     </header>
     <main class="container mt-3">
-        <h3>Stagiaires Page</h3>
-
-
-
-
+        <h3>Categories Page</h3>
 
         <div class="card shadow">
             <div class="card-header">
-                <h5>Liste des stagiaires</h3>
+                <h5>Liste des categories</h3>
             </div>
 
             <div class="card-body">
 
-                <a href="stagiaire_add.php" class="btn btn-primary mb-3 ">Ajouter</a>
-                <a href="stagiaires_archived.php" class="btn btn-secondary mb-3 ">
-                    Archives
-                    <span class="badge text-bg-light">
-                        <?= $total_archived ?>
-                    </span>
-                </a>
+                <a href="categories_add.php" class="btn btn-primary mb-3 ">Ajouter</a>
 
 
                 <div class="table-responsive">
@@ -89,34 +74,27 @@ $total_archived = $db->query("SELECT COUNT(id) AS total FROM stagiaires WHERE de
                         <theade>
                             <tr class="table-light">
                                 <th>Id</th>
-                                <th>Prenom</th>
                                 <th>Nom</th>
-                                <th>Date de naissance</th>
-                                <th>Genre</th>
+                                <th>Icon</th>
                                 <th>Actions</th>
                             </tr>
                         </theade>
                         <tbody>
-                            <?php foreach ($stagiaires as $key => $value) : ?>
+                            <?php foreach ($categories as $key => $value) : ?>
                                 <tr class="<?= $value->id == $row_selected ? 'table-primary' : '' ?>">
                                     <td>
                                         <?= $value->id ?>
                                     </td>
-                                    <td><?= $value->prenom ?></td>
-                                    <td><?= $value->nom ?></td>
-                                    <td><?= $value->date_naissance ?></td>
+                                    <td><?= $value->name ?></td>
                                     <td>
-
-                                        <span class="badge rounded-pill text-bg-<?= $value->genre == 'femme' ? 'danger' : 'primary' ?>">
-                                            <?= $value->genre == 'femme' ? 'FE' : 'HO' ?>
-                                        </span>
+                                        <i class="bi bi-<?= $value->icon ?>"></i>
                                     </td>
                                     <td>
-                                        <a href="stagiaire_details.php?id=<?= $value->id ?>" class="btn btn-secondary btn-sm">Afficher</a>
+                                        <a href="categories_details.php?id=<?= $value->id ?>" class="btn btn-secondary btn-sm">Afficher</a>
 
-                                        <a href="stagiaire_update.php?id=<?= $value->id ?>" class="btn btn-dark btn-sm">Modifier</a>
+                                        <a href="categories_update.php?id=<?= $value->id ?>" class="btn btn-dark btn-sm">Modifier</a>
 
-                                        <a href="stagiaire_delete.php?id=<?= $value->id ?>" class="btn btn-danger btn-sm">Supprimer</a>
+                                        <a href="categories_delete.php?id=<?= $value->id ?>" class="btn btn-danger btn-sm">Supprimer</a>
                                     </td>
                                 </tr>
                             <?php endforeach ?>

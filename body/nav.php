@@ -1,5 +1,8 @@
 <?php
-$stagiaires_pages = ['stagiaires', 'stagiaire_add', 'stagiaire_delete', 'stagiaire_details', 'stagiaire_update'];
+$stagiaires_pages = ['stagiaires', 'stagiaire_add', 'stagiaire_delete', 'stagiaire_details', 'stagiaire_update', 'stagiaires_archived', 'stagiaire_recover'];
+$categories_pages = ['categories', 'categories_add', 'categories_details', 'categories_delete', 'categories_update'];
+
+$total_stagiaires = $db->query("SELECT COUNT(id) AS total FROM stagiaires WHERE deleted_at IS NULL LIMIT 1")->fetch()->total;
 ?>
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -27,7 +30,13 @@ $stagiaires_pages = ['stagiaires', 'stagiaire_add', 'stagiaire_delete', 'stagiai
                 <li class="nav-item">
                     <a class="nav-link 
                     <?= in_array($page, $stagiaires_pages) ? 'active text-info fw-bold' : '-' ?>
-                    " href="stagiaires.php">Stagiaires</a>
+                    " href="stagiaires.php">Stagiaires (<?= $total_stagiaires ?>)</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link 
+                    <?= in_array($page, $categories_pages) ? 'active text-info fw-bold' : '-' ?>
+                    " href="categories.php">Categories</a>
                 </li>
             </ul>
         </div>

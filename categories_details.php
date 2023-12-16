@@ -1,6 +1,6 @@
 <?php
 require_once "database/db.php";
-$page = "stagiaire_details";
+$page = "categories_details";
 
 
 // echo "<pre>";
@@ -11,22 +11,22 @@ if (isset($_GET['id'])) {
 
     $id = $_GET['id'];
 
-    $req = $db->query("SELECT * from stagiaires WHERE id = $id LIMIT 1");
+    $req = $db->query("SELECT * from categories WHERE id = $id LIMIT 1");
 
-    $rows_stagiaire = $req->rowCount();
+    $rows_categorie = $req->rowCount();
 
-    if ($rows_stagiaire == 0) {
-        header("Location: stagiaires.php");
+    if ($rows_categorie == 0) {
+        header("Location: categories.php");
         exit;
     }
 
-    $stagiaire = $req->fetch();
+    $categorie = $req->fetch();
 
     // echo "<pre>";
-    // print_r($stagiaire);
+    // print_r($categorie);
     // echo "</pre>";
 } else {
-    header("Location: stagiaires.php");
+    header("Location: categories.php");
     exit;
 }
 
@@ -47,22 +47,23 @@ if (isset($_GET['id'])) {
         <?php include "body/nav.php" ?>
     </header>
     <main class="container mt-3">
-        <h3>Details de stagiaire</h3>
+        <h3>Details de categorie</h3>
 
 
 
         <div class="card shadow">
             <div class="card-header">
-                <h5>Details de stagiaire</h3>
+                <h5>Details de categorie</h3>
             </div>
 
             <div class="card-body">
 
                 <ul class="list-group">
-                    <li class="list-group-item">Prenom: <?= $stagiaire->prenom ?></li>
-                    <li class="list-group-item">Nom: <?= $stagiaire->nom ?></li>
-                    <li class="list-group-item">Date de naissance: <?= $stagiaire->date_naissance ?></li>
-                    <li class="list-group-item">Genre: <?= $stagiaire->genre ?></li>
+                    <li class="list-group-item">Nom: <?= $categorie->name ?></li>
+                    <li class="list-group-item">
+                        Icon:
+                        <i class="bi bi-<?= $categorie->icon ?>"></i>
+                    </li>
                 </ul>
 
             </div>

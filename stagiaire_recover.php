@@ -1,6 +1,6 @@
 <?php
 require_once "database/db.php";
-$page = "stagiaire_delete";
+$page = "stagiaire_recover";
 
 
 // echo "<pre>";
@@ -11,7 +11,7 @@ if (isset($_GET['id'])) {
 
     $id = $_GET['id'];
 
-    $req = $db->query("SELECT * from stagiaires WHERE id = $id LIMIT 1");
+    $req = $db->query("SELECT * from stagiaires WHERE id = $id AND deleted_at IS NOT NULL LIMIT 1");
 
     $rows_stagiaire = $req->rowCount();
 
@@ -30,11 +30,11 @@ if (isset($_GET['id'])) {
     exit;
 }
 
-if (isset($_POST['delete_stagiaire'])) {
+if (isset($_POST['recover_stagiaire'])) {
 
     // $db->query("DELETE FROM stagiaires WHERE id = $id");
-    $db->query("UPDATE stagiaires SET deleted_at = NOW() WHERE id = $id");
-    header("Location: stagiaires.php");
+    $db->query("UPDATE stagiaires SET deleted_at = NULL WHERE id = $id");
+    header("Location: stagiaires.php?row_selected=$id");
     exit;
 }
 
@@ -55,13 +55,12 @@ if (isset($_POST['delete_stagiaire'])) {
         <?php include "body/nav.php" ?>
     </header>
     <main class="container mt-3">
-        <h3>Delete stagiaire</h3>
-
+        <h3>Récupérer stagiaire <?= $stagiaire->prenom ?> <?= $stagiaire->nom ?></h3>
 
 
         <div class="card shadow">
             <div class="card-header">
-                <h5>Delete stagiaire</h3>
+                <h5>Récupérer stagiaire <?= $stagiaire->prenom ?> <?= $stagiaire->nom ?></h3>
             </div>
 
             <div class="card-body">
@@ -74,12 +73,12 @@ if (isset($_POST['delete_stagiaire'])) {
                 </ul>
 
 
-                <h5 class="text-danger">Voulez vous vraiment supprimer <?= $stagiaire->prenom ?> <?= $stagiaire->nom ?> ?</h5>
+                <h5 class="text-success my-3">Voulez vous vraiment recupéré <?= $stagiaire->prenom ?> <?= $stagiaire->nom ?> ?</h5>
 
 
                 <form action="" method="post">
                     <a href="stagiaires.php" class="btn btn-secondary">Non</a>
-                    <button class="btn btn-danger" name="delete_stagiaire">Oui</button>
+                    <button class="btn btn-success" name="recover_stagiaire">Oui</button>
                 </form>
 
             </div>

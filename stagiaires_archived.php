@@ -23,13 +23,8 @@ if (isset($_GET['row_selected'])) {
 
 
 
-$stagiaires = $db->query("SELECT * FROM stagiaires WHERE deleted_at IS NULL ORDER BY id DESC")->fetchAll();
+$stagiaires = $db->query("SELECT * FROM stagiaires WHERE deleted_at IS NOT NULL ORDER BY id DESC")->fetchAll();
 
-
-$total_archived = $db->query("SELECT COUNT(id) AS total FROM stagiaires WHERE deleted_at IS NOT NULL LIMIT 1")->fetch()->total;
-
-
-// $total_archived = $db->query("SELECT id FROM stagiaires WHERE deleted_at IS NOT NULL")->rowCount();
 
 
 // $_GET;
@@ -62,7 +57,7 @@ $total_archived = $db->query("SELECT COUNT(id) AS total FROM stagiaires WHERE de
         <?php include "body/nav.php" ?>
     </header>
     <main class="container mt-3">
-        <h3>Stagiaires Page</h3>
+        <h3>Stagiaires archivés</h3>
 
 
 
@@ -70,18 +65,10 @@ $total_archived = $db->query("SELECT COUNT(id) AS total FROM stagiaires WHERE de
 
         <div class="card shadow">
             <div class="card-header">
-                <h5>Liste des stagiaires</h3>
+                <h5>Liste des stagiaires qui sont archivés</h3>
             </div>
 
             <div class="card-body">
-
-                <a href="stagiaire_add.php" class="btn btn-primary mb-3 ">Ajouter</a>
-                <a href="stagiaires_archived.php" class="btn btn-secondary mb-3 ">
-                    Archives
-                    <span class="badge text-bg-light">
-                        <?= $total_archived ?>
-                    </span>
-                </a>
 
 
                 <div class="table-responsive">
@@ -114,9 +101,8 @@ $total_archived = $db->query("SELECT COUNT(id) AS total FROM stagiaires WHERE de
                                     <td>
                                         <a href="stagiaire_details.php?id=<?= $value->id ?>" class="btn btn-secondary btn-sm">Afficher</a>
 
-                                        <a href="stagiaire_update.php?id=<?= $value->id ?>" class="btn btn-dark btn-sm">Modifier</a>
 
-                                        <a href="stagiaire_delete.php?id=<?= $value->id ?>" class="btn btn-danger btn-sm">Supprimer</a>
+                                        <a href="stagiaire_recover.php?id=<?= $value->id ?>" class="btn btn-success btn-sm">Récupérer</a>
                                     </td>
                                 </tr>
                             <?php endforeach ?>

@@ -1,6 +1,6 @@
 <?php
 require_once "database/db.php";
-$page = "stagiaire_delete";
+$page = "categories_delete";
 
 
 // echo "<pre>";
@@ -11,34 +11,33 @@ if (isset($_GET['id'])) {
 
     $id = $_GET['id'];
 
-    $req = $db->query("SELECT * from stagiaires WHERE id = $id LIMIT 1");
+    $req = $db->query("SELECT * from categories WHERE id = $id LIMIT 1");
 
-    $rows_stagiaire = $req->rowCount();
+    $rows_categorie = $req->rowCount();
 
-    if ($rows_stagiaire == 0) {
-        header("Location: stagiaires.php");
+    if ($rows_categorie == 0) {
+        header("Location: categories.php");
         exit;
     }
 
-    $stagiaire = $req->fetch();
+    $categorie = $req->fetch();
 
     // echo "<pre>";
-    // print_r($stagiaire);
+    // print_r($categorie);
     // echo "</pre>";
 } else {
-    header("Location: stagiaires.php");
-    exit;
-}
-
-if (isset($_POST['delete_stagiaire'])) {
-
-    // $db->query("DELETE FROM stagiaires WHERE id = $id");
-    $db->query("UPDATE stagiaires SET deleted_at = NOW() WHERE id = $id");
-    header("Location: stagiaires.php");
+    header("Location: categories.php");
     exit;
 }
 
 
+if (isset($_POST['delete_categorie'])) {
+
+    // $db->query("DELETE FROM categories WHERE id = $id");
+    $db->query("UPDATE categories SET deleted_at = NOW() WHERE id = $id");
+    header("Location: categories.php");
+    exit;
+}
 
 ?>
 
@@ -55,31 +54,31 @@ if (isset($_POST['delete_stagiaire'])) {
         <?php include "body/nav.php" ?>
     </header>
     <main class="container mt-3">
-        <h3>Delete stagiaire</h3>
+        <h3>Details de categorie</h3>
 
 
 
         <div class="card shadow">
             <div class="card-header">
-                <h5>Delete stagiaire</h3>
+                <h5>Details de categorie</h3>
             </div>
 
             <div class="card-body">
 
                 <ul class="list-group">
-                    <li class="list-group-item">Prenom: <?= $stagiaire->prenom ?></li>
-                    <li class="list-group-item">Nom: <?= $stagiaire->nom ?></li>
-                    <li class="list-group-item">Date de naissance: <?= $stagiaire->date_naissance ?></li>
-                    <li class="list-group-item">Genre: <?= $stagiaire->genre ?></li>
+                    <li class="list-group-item">Nom: <?= $categorie->name ?></li>
+                    <li class="list-group-item">
+                        Icon:
+                        <i class="bi bi-<?= $categorie->icon ?>"></i>
+                    </li>
                 </ul>
 
 
-                <h5 class="text-danger">Voulez vous vraiment supprimer <?= $stagiaire->prenom ?> <?= $stagiaire->nom ?> ?</h5>
+                <h5 class="text-danger">Voulez vous vraiment supprimer <?= $categorie->name ?>?</h5>
 
-
-                <form action="" method="post">
-                    <a href="stagiaires.php" class="btn btn-secondary">Non</a>
-                    <button class="btn btn-danger" name="delete_stagiaire">Oui</button>
+                <form method="post">
+                    <a href="categories.php" class="btn btn-secondary">Non</a>
+                    <button class="btn btn-danger" name="delete_categorie">Oui</button>
                 </form>
 
             </div>
