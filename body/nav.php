@@ -2,6 +2,8 @@
 $stagiaires_pages = ['stagiaires', 'stagiaire_add', 'stagiaire_delete', 'stagiaire_details', 'stagiaire_update', 'stagiaires_archived', 'stagiaire_recover'];
 $categories_pages = ['categories', 'categories_add', 'categories_details', 'categories_delete', 'categories_update'];
 
+$produits_pages = ['produits', 'produits_add', 'produits_details', 'produits_delete', 'produits_update'];
+
 $total_stagiaires = $db->query("SELECT COUNT(id) AS total FROM stagiaires WHERE deleted_at IS NULL LIMIT 1")->fetch()->total;
 ?>
 
@@ -37,6 +39,12 @@ $total_stagiaires = $db->query("SELECT COUNT(id) AS total FROM stagiaires WHERE 
                     <a class="nav-link 
                     <?= in_array($page, $categories_pages) ? 'active text-info fw-bold' : '-' ?>
                     " href="categories.php">Categories</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link 
+                    <?= in_array($page, $produits_pages) ? 'active text-info fw-bold' : '-' ?>
+                    " href="produits.php">Produits</a>
                 </li>
             </ul>
         </div>

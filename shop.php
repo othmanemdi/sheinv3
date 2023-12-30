@@ -3,34 +3,11 @@ require_once "database/db.php";
 require_once "helpers/functions.php";
 $page = "shop";
 
-$categories = [
-    1 => [
-        "name" =>  "iphone",
-        "icon" =>  "phone",
-    ],
-    [
-        "name" =>  "macbook",
-        "icon" =>  "laptop",
-    ],
-    [
-        "name" =>  "imac",
-        "icon" =>  "pc-display-horizontal",
-    ],
-    [
-        "name" =>  "air pods",
-        "icon" =>  "earbuds",
-    ],
-    [
-        "name" =>  "apple watch",
-        "icon" =>  "smartwatch",
-    ],
-    [
-        "name" =>  "ipad",
-        "icon" =>  "tablet",
-    ],
-];
+$categories = $db->query("SELECT * FROM categories WHERE deleted_at IS NULL")->fetchAll();
 
-$colors = [1 => "blue", "black", "red", "orange", "green", "pink", "purple"];
+
+
+$colors = $db->query("SELECT * FROM colors WHERE deleted_at IS NULL")->fetchAll();
 
 
 $products = [
@@ -50,8 +27,8 @@ $products = [
     1 => [
         "image" => "1.jpg",
         "name" => "Iphone 13 Pro Max",
-        "category_name" => $categories[1]['name'],
-        "color_name" => $colors[1],
+        "category_name" => "Iphone",
+        "color_name" => "Blue",
         "price" => 18000,
         "old_price" => 18500,
         "quantity" => 10
@@ -60,8 +37,8 @@ $products = [
     2 => [
         "image" => "2.jpg",
         "name" => "Imac 24 pouce M2",
-        "category_name" => $categories[3]['name'],
-        "color_name" => $colors[5],
+        "category_name" => "Macbook",
+        "color_name" => "Orange",
         "price" => 24000,
         "old_price" => 24500,
         "quantity" => 20
@@ -70,8 +47,8 @@ $products = [
     3 => [
         "image" => "3.jpg",
         "name" => "Imac 27 pouce M2",
-        "category_name" => $categories[3]['name'],
-        "color_name" => $colors[7],
+        "category_name" => "Imac",
+        "color_name" => "green",
         "price" => 28000,
         "old_price" => 28500,
         "quantity" => 30
@@ -80,8 +57,8 @@ $products = [
     4 => [
         "image" => "4.jpg",
         "name" => "Macbook M2",
-        "category_name" => $categories[3]['name'],
-        "color_name" => $colors[5],
+        "category_name" => "Macbook",
+        "color_name" => "gray",
         "price" => 18000,
         "old_price" => 18500,
         "quantity" => 50
@@ -90,8 +67,8 @@ $products = [
     5 => [
         "image" => "5.jpg",
         "name" => "Macbook Pro Max M2 ",
-        "category_name" => $categories[3]['name'],
-        "color_name" => $colors[7],
+        "category_name" => "Macbook",
+        "color_name" => "Orange",
         "price" => 30000,
         "old_price" => 30500,
         "quantity" => 45
@@ -159,11 +136,11 @@ $products = [
                     <?php foreach ($categories as $key => $c) : ?>
 
                         <li class="list-group-item  p-1">
-                            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="<?= $c['name'] ?>">
+                            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="<?= $c->name ?>">
 
-                            <label class="form-check-label" for="<?= $c['name'] ?>">
-                                <i class="bi bi-<?= $c['icon'] ?>"></i>
-                                <?= ucwords($c['name']) ?>
+                            <label class="form-check-label" for="<?= $c->name ?>">
+                                <i class="bi bi-<?= $c->icon ?>"></i>
+                                <?= ucwords($c->name) ?>
                             </label>
                         </li>
                     <?php endforeach ?>
@@ -177,8 +154,8 @@ $products = [
                 <ul class="list-group list-group-flush mb-3">
                     <?php foreach ($colors as $key => $color) : ?>
                         <li class="list-group-item p-1">
-                            <i class="bi bi-circle-fill" style="color:<?= $color ?>;font-size:16px"></i>
-                            <?= ucwords($color) ?>
+                            <i class="bi bi-circle-fill" style="color:<?= $color->hex_color ?>;font-size:16px"></i>
+                            <?= ucwords($color->name) ?>
                         </li>
                     <?php endforeach ?>
                 </ul>

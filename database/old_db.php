@@ -31,3 +31,30 @@
 //         "genre" =>  "femme",
 //     ]
 // ];
+
+// $categories = [
+//     1 => [
+//         "name" =>  "iphone",
+//         "icon" =>  "phone",
+//     ],
+//     [
+//         "name" =>  "macbook",
+//         "icon" =>  "laptop",
+//     ],
+//     [
+//         "name" =>  "imac",
+//         "icon" =>  "pc-display-horizontal",
+//     ],
+//     [
+//         "name" =>  "air pods",
+//         "icon" =>  "earbuds",
+//     ],
+//     [
+//         "name" =>  "apple watch",
+//         "icon" =>  "smartwatch",
+//     ],
+//     [
+//         "name" =>  "ipad",
+//         "icon" =>  "tablet",
+//     ],
+// ];
