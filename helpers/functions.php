@@ -52,3 +52,8 @@ function dd($array)
     echo "</pre>";
     exit;
 }
+
+function e($string)
+{
+    return strtolower(trim($string));
+}

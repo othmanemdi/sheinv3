@@ -21,7 +21,7 @@ $total_stagiaires = $db->query("SELECT COUNT(id) AS total FROM stagiaires WHERE 
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link <?= $page == "shop" ? 'active text-info fw-bold' : '' ?>" href="shop.php">Shop</a>
+                    <a class="nav-link <?= in_array($page, ['shop', 'product_details']) ? 'active text-info fw-bold' : '' ?>" href="shop.php">Shop</a>
                 </li>
                 <!-- fw-bold text-info -->
 

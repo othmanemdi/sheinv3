@@ -3,107 +3,24 @@ require_once "database/db.php";
 require_once "helpers/functions.php";
 $page = "shop";
 
+$q = "";
+if (isset($_GET['search'])) {
+    $search = e($_GET['search']);
+    if (empty($search)) {
+        header('Location:shop.php');
+        exit;
+    }
+    $q = " AND designation LIKE '%$search%' ";
+}
+
+$produits = $db->query("SELECT * FROM produits WHERE deleted_at IS NULL $q")->fetchAll();
+
+
 $categories = $db->query("SELECT * FROM categories WHERE deleted_at IS NULL")->fetchAll();
-
-
 
 $colors = $db->query("SELECT * FROM colors WHERE deleted_at IS NULL")->fetchAll();
 
 
-$products = [
-    1 => [
-        "image" => "1.jpg",
-        "name" => "",
-        "description" => "",
-        "price" => "",
-        "old_price" => "",
-        "quantity" => "",
-        "color_name" => "",
-        "category_name" => "",
-    ],
-];
-
-$products = [
-    1 => [
-        "image" => "1.jpg",
-        "name" => "Iphone 13 Pro Max",
-        "category_name" => "Iphone",
-        "color_name" => "Blue",
-        "price" => 18000,
-        "old_price" => 18500,
-        "quantity" => 10
-    ],
-
-    2 => [
-        "image" => "2.jpg",
-        "name" => "Imac 24 pouce M2",
-        "category_name" => "Macbook",
-        "color_name" => "Orange",
-        "price" => 24000,
-        "old_price" => 24500,
-        "quantity" => 20
-    ],
-
-    3 => [
-        "image" => "3.jpg",
-        "name" => "Imac 27 pouce M2",
-        "category_name" => "Imac",
-        "color_name" => "green",
-        "price" => 28000,
-        "old_price" => 28500,
-        "quantity" => 30
-    ],
-
-    4 => [
-        "image" => "4.jpg",
-        "name" => "Macbook M2",
-        "category_name" => "Macbook",
-        "color_name" => "gray",
-        "price" => 18000,
-        "old_price" => 18500,
-        "quantity" => 50
-    ],
-
-    5 => [
-        "image" => "5.jpg",
-        "name" => "Macbook Pro Max M2 ",
-        "category_name" => "Macbook",
-        "color_name" => "Orange",
-        "price" => 30000,
-        "old_price" => 30500,
-        "quantity" => 45
-    ],
-];
-
-
-// echo '<pre>';
-// print_r($products);
-// echo '</pre>';
-// exit;
-
-
-// for ($i = 1; $i <= count($categories); $i++) {
-//     echo  $categories[$i];
-//     echo "<br>";
-// }
-
-
-
-// foreach ($categories as $key => $value) {
-//     echo $value;
-//     echo " - ";
-//     echo $key;
-//     echo "<br>";
-// }
-
-
-// exit;
-
-// exit;
-// echo '<pre>';
-// echo print_r($categories);
-// echo '</pre>';
-// exit;
 ?>
 
 
@@ -178,100 +95,40 @@ $products = [
 
             <div class="col-md-9">
 
+
+
+
+                <form method="get">
+                    <div class="input-group mb-3">
+                        <input type="text" name="search" class="form-control" placeholder="Search" value="<?= $search ?? '' ?>">
+                        <button class="btn btn-dark" type="submit" id="button-addon2">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <?php if (isset($search)) : ?>
+                    <div class="alert alert-info" role="alert">
+                        Result of your serash by <?= $search ?? '' ?>
+                    </div>
+                <?php endif ?>
+
+
                 <div class="row">
-                    <?php foreach ($products as $key => $p) : ?>
+                    <?php foreach ($produits as $key => $p) : ?>
 
                         <div class="col-md-4">
                             <div class="card mb-2" data-aos="fade-up">
-                                <img class="card-img-top" src="images/<?= $p['image'] ?>" alt="Title" height="280">
+                                <a href="product_details.php?id=<?= $p->id ?>">
+                                    <img class="card-img-top" src="images/produits/<?= $p->image ?>" alt="Title" height="280">
+                                </a>
                                 <div class="card-body">
-                                    <h6 class="card-title"><?= $p['name'] ?></h6>
+                                    <h6 class="card-title"><?= $p->designation ?></h6>
 
                                     <h6>
-                                        <?= $p['price'] ?>
+                                        <?= $p->prix ?>
                                         <s class="text-danger">
-                                            <?= $p['old_price'] ?>
-                                        </s>
-                                    </h6>
-
-                                    <a href="" class="btn btn-dark fw-bold btn-sm">
-                                        <i class="bi bi-cart-fill"></i>
-                                        Add to cart
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- col 2 -->
-
-                    <?php endforeach ?>
-
-
-                    <?php foreach ($products as $key => $p) : ?>
-
-                        <div class="col-md-4">
-                            <div class="card mb-2" data-aos="fade-up">
-                                <img class="card-img-top" src="images/<?= $p['image'] ?>" alt="Title" height="280">
-                                <div class="card-body">
-                                    <h6 class="card-title"><?= $p['name'] ?></h6>
-
-                                    <h6>
-                                        <?= $p['price'] ?>
-                                        <s class="text-danger">
-                                            <?= $p['old_price'] ?>
-                                        </s>
-                                    </h6>
-
-                                    <a href="" class="btn btn-dark fw-bold btn-sm">
-                                        <i class="bi bi-cart-fill"></i>
-                                        Add to cart
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- col 2 -->
-
-                    <?php endforeach ?>
-
-
-                    <?php foreach ($products as $key => $p) : ?>
-
-                        <div class="col-md-4">
-                            <div class="card mb-2" data-aos="fade-up">
-                                <img class="card-img-top" src="images/<?= $p['image'] ?>" alt="Title" height="280">
-                                <div class="card-body">
-                                    <h6 class="card-title"><?= $p['name'] ?></h6>
-
-                                    <h6>
-                                        <?= $p['price'] ?>
-                                        <s class="text-danger">
-                                            <?= $p['old_price'] ?>
-                                        </s>
-                                    </h6>
-
-                                    <a href="" class="btn btn-dark fw-bold btn-sm">
-                                        <i class="bi bi-cart-fill"></i>
-                                        Add to cart
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- col 2 -->
-
-                    <?php endforeach ?>
-
-
-                    <?php foreach ($products as $key => $p) : ?>
-
-                        <div class="col-md-4">
-                            <div class="card mb-2" data-aos="fade-up">
-                                <img class="card-img-top" src="images/<?= $p['image'] ?>" alt="Title" height="280">
-                                <div class="card-body">
-                                    <h6 class="card-title"><?= $p['name'] ?></h6>
-
-                                    <h6>
-                                        <?= $p['price'] ?>
-                                        <s class="text-danger">
-                                            <?= $p['old_price'] ?>
+                                            <?= $p->ancien_prix ?>
                                         </s>
                                     </h6>
 

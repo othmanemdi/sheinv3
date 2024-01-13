@@ -56,7 +56,6 @@ $produits = $db->query("SELECT * FROM produits WHERE deleted_at IS NULL ORDER BY
                                 <th>Id</th>
                                 <th>Image</th>
                                 <th>Référence</th>
-                                <th>Désignation</th>
                                 <th>Quantité</th>
                                 <th>Prix</th>
                                 <th>Actions</th>
@@ -69,10 +68,10 @@ $produits = $db->query("SELECT * FROM produits WHERE deleted_at IS NULL ORDER BY
                                         <?= $value->id ?>
                                     </td>
                                     <td>
-                                        <img width="30" src="images/<?= $value->image ?>" alt="">
+                                        <img width="30" src="images/produits/<?= $value->image ?>" alt="">
                                     </td>
                                     <td><?= $value->reference ?></td>
-                                    <td><?= $value->designation ?></td>
+
                                     <td><?= $value->quantite ?></td>
                                     <td><?= $value->prix ?></td>
 

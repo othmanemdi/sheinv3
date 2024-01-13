@@ -1,21 +1,76 @@
 <?php
+require_once "helpers/functions.php";
 require_once "database/db.php";
 $page = "categories_add";
 
+
+
+
+
+
+
+
+$errors = [];
+
 if (isset($_POST['add_categorie'])) {
 
-    $name = $_POST['name'];
-    $icon = $_POST['icon'];
+    $name = e($_POST['name']);
+    $icon = e($_POST['icon']);
 
-    $db->query("INSERT INTO categories SET 
-    name = '$name',
-    icon = '$icon'
-    ");
+    if (empty($name)) {
+        $input_name_validate_class = "is-invalid";
+        $input_name_validate_message = "Le champ nom est requis";
+        $errors[] = $input_name_validate_message;
+    } else {
+        if (!preg_match('/^[A-Za-z ]+$/', $name)) {
+            $input_name_validate_class = "is-invalid";
+            $input_name_validate_message = "Seul les charactéres alphabétiques sont autorisé";
+            $errors[] = $input_name_validate_message;
+        } else {
+            if (strlen($name) < 3) {
+                $input_name_validate_class = "is-invalid";
+                $input_name_validate_message = "Veuillez saisir plus de 3 caractères";
+                $errors[] = $input_name_validate_message;
+            } else {
+                $rows_category = $db->query("SELECT id FROM categories WHERE
+                name = '$name' AND deleted_at IS NULL LIMIT 1")->rowCount();
+                if ($rows_category === 1) {
+                    $input_name_validate_class = "is-invalid";
+                    $input_name_validate_message = $name . " déja pris";
+                    $errors[] = $input_name_validate_message;
+                } else {
+                    $input_name_validate_class = "is-valid";
+                }
+            }
+        }
+    }
 
-    $id = $db->lastInsertId();
 
-    header("Location: categories.php?row_selected=$id");
-    exit;
+
+
+
+    if ($icon == '') {
+        $input_icon_validate_class = "is-invalid";
+        $input_icon_validate_message = "Le champ icon est requis";
+        $errors[] = $input_icon_validate_message;
+    } else {
+        $input_icon_validate_class = "is-valid";
+    }
+
+
+
+    if (empty($errors)) {
+
+        $db->query("INSERT INTO categories SET 
+            name = '$name',
+            icon = '$icon'
+        ");
+
+        $id = $db->lastInsertId();
+
+        header("Location: categories.php?row_selected=$id");
+        exit;
+    }
 }
 
 
@@ -43,6 +98,19 @@ if (isset($_POST['add_categorie'])) {
     <main class="container mt-3">
         <h3>Ajouter un categorie</h3>
 
+        <?php if (!empty($errors)) : ?>
+            <div class="alert alert-danger" role="alert">
+                <h3>Liste des erreurs</h3>
+                <ul>
+                    <?php foreach ($errors as $key => $error) : ?>
+                        <li><?= $error ?></li>
+                    <?php endforeach ?>
+                </ul>
+            </div>
+        <?php endif ?>
+
+
+
 
 
         <div class="card shadow">
@@ -58,7 +126,16 @@ if (isset($_POST['add_categorie'])) {
                         <div class="col-md-3">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nom:</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Nom:">
+                                <input type="text" class="form-control <?= $input_name_validate_class ?? '' ?> " name="name" id="name" placeholder="Nom:" value="<?= $name ?? '' ?>">
+
+
+                                <?php if (isset($input_name_validate_message)) : ?>
+                                    <div class="invalid-feedback">
+                                        <?= $input_name_validate_message ?? '' ?>
+                                    </div>
+                                <?php endif ?>
+
+
 
                             </div>
                         </div>
@@ -68,7 +145,16 @@ if (isset($_POST['add_categorie'])) {
                         <div class="col-md-3">
                             <div class="mb-3">
                                 <label for="icon" class="form-label">Icon:</label>
-                                <input type="text" class="form-control" name="icon" id="icon" placeholder="Icon:">
+
+
+                                <input type="text" class="form-control <?= $input_icon_validate_class ?? '' ?> " name="icon" id="icon" placeholder="Nom:" value="<?= $icon ?? '' ?>">
+
+
+                                <?php if (isset($input_icon_validate_message)) : ?>
+                                    <div class="invalid-feedback">
+                                        <?= $input_icon_validate_message ?? '' ?>
+                                    </div>
+                                <?php endif ?>
                             </div>
                         </div>
                         <!-- col -->

@@ -2,13 +2,48 @@
 require_once "helpers/functions.php";
 require_once "database/db.php";
 $page = "produits_add";
-
+// images_test
 if (isset($_POST['add_produit'])) {
     // https://www.w3schools.com/php/php_file_upload.asp
 
-    $target_file = "images/" . basename($_FILES["image"]["name"]);
-    move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
 
+    $file_name = $_FILES['image']['name'];
+    $file_tmp_name = $_FILES['image']['tmp_name'];
+
+    $target_file = "images/produits/" . basename($_FILES['image']['name']);
+
+    $file_extention = strtolower(pathinfo($target_file)['extension']);
+
+    $image_name_new = date("Y-m-d-H-i-s") . "-" . uniqid() . "." . $file_extention;
+
+    $target_file_new = "images/" . $image_name_new;
+
+    move_uploaded_file($file_tmp_name, $target_file_new);
+
+    // exit;
+    // if ($file_extention == 'jpg' or $file_extention == 'jpeg' or $file_extention == 'png' or $file_extention == 'GIF') {
+    //     move_uploaded_file($file_tmp_name, $target_file);
+    // } else {
+    //     echo "Error extention";
+    // }
+
+
+
+    // if (file_exists($target_file) === true) {
+    //     echo "Document existe déja !!!";
+    // }
+
+
+
+    // if (in_array($file_extention, ['jpg', 'jpeg', 'png', 'gif'])) {
+    //     move_uploaded_file($file_tmp_name, $target_file);
+    // } else {
+    //     echo "Error extention";
+    // }
+
+
+
+    // exit;
 
     $reference = $_POST['reference'];
     $designation = $_POST['designation'];
@@ -29,7 +64,7 @@ if (isset($_POST['add_produit'])) {
     quantite = '$quantite',
     prix = '$prix',
     ancien_prix = '$ancien_prix',
-    image = '$image',
+    image = '$image_name_new',
     description = '$description'
     ");
 
